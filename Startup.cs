@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DotNetSimpleBlog.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -24,6 +26,9 @@ namespace DotNetSimpleBlog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<DataContext>(opt => opt.UseSqlite(
+                Configuration.GetConnectionString("DefaultConnection")
+            ));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
